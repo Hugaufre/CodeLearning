@@ -3,11 +3,13 @@ package iut.gon.tp2;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.event.EventType;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
@@ -85,8 +87,17 @@ public class TP2App extends Application {
 	  
 	  fichier.getItems().add(quitter);
 	  aide.getItems().add(apropos);
-	  
 	  menus.getMenus().addAll(fichier, aide);
+	  
+	  quitter.addEventHandler(ActionEvent.ACTION, event->{
+		  Platform.exit();
+	  });
+	  aide.addEventHandler(ActionEvent.ACTION, event->{
+		  Alert alert = new Alert(AlertType.NONE, "",ButtonType.CLOSE);
+		  alert.setTitle("Info");
+		  alert.setContentText("Fait par... MOI!");
+		  alert.show();
+	  });
   }
 
   /**

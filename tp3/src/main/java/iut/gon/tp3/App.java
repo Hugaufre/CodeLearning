@@ -17,7 +17,11 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("primary"), 640, 480);
+    	GrilleModel grilleModel = new GrilleModel();
+    	GrilleController grilleControl = new GrilleController(grilleModel);
+    	FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("primary.fxml"));
+    	fxmlLoader.setController(grilleControl);
+        scene = new Scene(fxmlLoader.load(), 640, 480);
         stage.setScene(scene);
         stage.show();
     }

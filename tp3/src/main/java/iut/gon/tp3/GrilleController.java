@@ -9,31 +9,38 @@ import javafx.scene.text.Font;
 
 public class GrilleController {
 
-	@FXML GridPane grille;
-	
-	public void initialize() {
-		
-		grille.setStyle("-fx-background-color: seashell");
-		
-		Label[][] label = new Label[3][3];
-		
-		for(int l = 0; l < 3;l++) {
-			for(int c = 0; c < 3;c++) {
-				 label[l][c] = new Label();
-				label[l][c].setText(String.format("L%dC%d",l,c));
-				label[l][c].setMaxSize(1000, 1000);
-				label[l][c].setAlignment(Pos.CENTER);
-				label[l][c].setFont(Font.font(20));
-			
-				int c2 = c;
-				int l2 = l;
-				label[l][c].addEventHandler(MouseEvent.MOUSE_CLICKED, event->{
-					label[l2][c2].setText("Bonjour");
-				});
-				
-				grille.add(label[l][c], l, c);
-				
-			}
-		}
-	}
+    @FXML
+    private GridPane grille;
+    
+    private Label[][] labelTab = new Label[3][3];
+    private GrilleModel grilleModel = new GrilleModel();
+    
+    
+    public GrilleController(GrilleModel grilleModel) {
+    	this.grilleModel = grilleModel;
+    }
+    
+    public void initialize() {
+    	grille.setStyle("-fx-background-color: seashell");
+    	for(int lig = 0; lig < 3; lig++) {
+    		for(int col = 0; col < 3; col++) {
+    			Label label = new Label();
+    			grilleModel.setCase(lig, col, String.format("L%dC%d", lig, col));
+    			label.setText(grilleModel.getCase(lig, col));
+    			label.setMaxSize(1000, 1000);
+    			label.setAlignment(Pos.CENTER);
+    			label.setFont(Font.font(20));
+    			int lig2 = lig;
+    			int col2 = col;
+    			label.addEventHandler(MouseEvent.MOUSE_CLICKED, event->{
+    				grilleModel.setCase(lig2, col2, "Bonjour");
+    				label.setText(grilleModel.getCase(lig2, col2));
+    			});
+    			grille.add(label, lig, col);
+    			labelTab[lig][col] = label;
+    		}
+    	}
+    	
+    	System.out.println("fdg");
+    }
 }

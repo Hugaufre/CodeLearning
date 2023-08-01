@@ -26,7 +26,9 @@ public class GrilleController {
     		for(int col = 0; col < 3; col++) {
     			Label label = new Label();
     			grilleModel.setCase(lig, col, String.format("L%dC%d", lig, col));
-    			label.setText(grilleModel.getCase(lig, col));
+    			label.setText(grilleModel.getCase(lig, col).getValue());
+    			label.textProperty().bind(this.grilleModel.getCase(lig, col));
+    			
     			label.setMaxSize(1000, 1000);
     			label.setAlignment(Pos.CENTER);
     			label.setFont(Font.font(20));
@@ -34,7 +36,7 @@ public class GrilleController {
     			int col2 = col;
     			label.addEventHandler(MouseEvent.MOUSE_CLICKED, event->{
     				grilleModel.setCase(lig2, col2, "Bonjour");
-    				label.setText(grilleModel.getCase(lig2, col2));
+    				label.setText(grilleModel.getCase(lig2, col2).getValue());
     			});
     			grille.add(label, lig, col);
     			labelTab[lig][col] = label;
